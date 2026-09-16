@@ -164,20 +164,24 @@ a { color: inherit; }
 .plate { 
   position: relative; 
   align-self: end; 
-  margin-top: -40px; 
-  margin-bottom: 0px;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: min(100%, 560px);
+  justify-self: end;
 }
 .plate-frame {
   position: relative; overflow: hidden;
   background: linear-gradient(170deg, #1c3e5c, #0a1828);
   border: 1px solid var(--line-strong);
+  min-height: clamp(420px, 46vw, 620px);
 }
 .plate-frame img {
   width: 100%; 
-  height: clamp(320px, 42vw, 470px);
+  height: clamp(420px, 46vw, 620px);
+  min-height: clamp(420px, 46vw, 620px);
   object-fit: cover; 
-  object-position: top center;
-  transform: translateY(-10px); 
+  object-position: center top;
+  transform: none;
   filter: grayscale(1) contrast(1.08) brightness(1.04);
   mix-blend-mode: luminosity; 
   opacity: 0.92;
@@ -189,7 +193,7 @@ a { color: inherit; }
     linear-gradient(135deg, rgba(255, 171, 61, 0.14), transparent 55%);
 }
 .plate-fallback {
-  height: clamp(320px, 42vw, 470px);
+  height: clamp(420px, 46vw, 620px);
   display: grid; place-items: center; text-align: center;
   padding: 24px; color: var(--sky-dim); font-size: 14px; line-height: 1.6;
 }
@@ -202,12 +206,17 @@ a { color: inherit; }
 @media (max-width: 900px) {
   .hero-in { grid-template-columns: 1fr; align-items: start; }
   .plate { 
-    order: 2; /* Ensures photo appears below text on mobile */
+    order: 2;
+    width: 100%;
     max-width: 100%; 
     margin-top: 20px;
     margin-bottom: 40px;
+    justify-self: stretch;
   }
-  .plate-frame img, .plate-fallback { height: 350px; }
+  .plate-frame,
+  .plate-frame img,
+  .plate-fallback { height: clamp(360px, 72vw, 520px); min-height: clamp(360px, 72vw, 520px); }
+  .plate-frame img { object-position: center 18%; }
   .hero-actions { padding-bottom: 44px; }
 }
 
