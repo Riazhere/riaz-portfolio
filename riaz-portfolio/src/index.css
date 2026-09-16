@@ -164,9 +164,8 @@ a { color: inherit; }
 .plate { 
   position: relative; 
   align-self: end; 
-  /* Pulls the entire picture frame up and offsets the grid alignment */
-  margin-top: -200px; 
-  margin-bottom: 100px;
+  margin-top: -40px; 
+  margin-bottom: 0px;
 }
 .plate-frame {
   position: relative; overflow: hidden;
@@ -178,8 +177,7 @@ a { color: inherit; }
   height: clamp(320px, 42vw, 470px);
   object-fit: cover; 
   object-position: top center;
-  /* This explicitly pushes the image upward inside its frame */
-  transform: translateY(-25px); 
+  transform: translateY(-10px); 
   filter: grayscale(1) contrast(1.08) brightness(1.04);
   mix-blend-mode: luminosity; 
   opacity: 0.92;
@@ -200,10 +198,16 @@ a { color: inherit; }
   background: var(--signal); color: var(--ink-deep);
   font-size: 13px; font-weight: 700; padding: 8px 14px;
 }
+
 @media (max-width: 900px) {
   .hero-in { grid-template-columns: 1fr; align-items: start; }
-  .plate { order: -1; max-width: 340px; }
-  .plate-frame img, .plate-fallback { height: 300px; }
+  .plate { 
+    order: 2; /* Ensures photo appears below text on mobile */
+    max-width: 100%; 
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+  .plate-frame img, .plate-fallback { height: 350px; }
   .hero-actions { padding-bottom: 44px; }
 }
 
