@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riaz Ijaz | Software & AI Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #050505;
+            --text-main: #ffffff;
+            --text-muted: #a0aab2;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #7000ff;
+            --card-bg: rgba(20, 22, 28, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2d35;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Animated Background Glows */
+        .bg-glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 10s infinite alternate ease-in-out;
+        }
+        .glow-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-purple);
+            top: -100px;
+            left: -100px;
+        }
+        .glow-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-cyan);
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 50px); }
+        }
+
+        /* Glassmorphism Navbar */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--card-border);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+        .logo span {
+            color: var(--accent-cyan);
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Global Layout */
+        section {
+            padding: 8rem 5% 4rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Reveal Animation Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        #home {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .code-tag {
+            font-family: 'Fira Code', monospace;
+            color: var(--accent-cyan);
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .typewriter-container {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            min-height: 3rem;
+        }
+
+        .hero-desc {
+            max-width: 600px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+
+        .btn-glow {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 30px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s;
+        }
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            filter: blur(15px);
+            opacity: 0.5;
+            z-index: -1;
+            border-radius: 30px;
+            transition: opacity 0.3s;
+        }
+        .btn-glow:hover {
+            transform: scale(1.05);
+        }
+        .btn-glow:hover::before {
+            opacity: 0.8;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-title::after {
+            content: "";
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-cyan), transparent);
+            flex-grow: 1;
+            max-width: 300px;
+        }
+
+        /* About / Skills Grid */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tech-pill {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            color: var(--accent-cyan);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .tech-pill:hover {
+            background: rgba(0, 240, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-folder {
+            color: var(--accent-purple);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            font-family: 'Fira Code', monospace;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card-border);
+        }
+
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Background -->
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+
+    <nav>
+        <a href="#" class="logo">Riaz<span>.</span></a>
+        <div class="nav-links">
+            <a href="#about">01. About</a>
+            <a href="#projects">02. Work</a>
+            <a href="#contact">03. Contact</a>
+            <a href="https://www.linkedin.com/in/riaz-ijaz-452225399/" target="_blank">04. LinkedIn</a>
+        </div>
+    </nav>
+
+    <section id="home">
+        <div class="reveal">
+            <span class="code-tag">&lt;hello_world&gt;</span>
+            <h1 class="hero-title">Riaz Ijaz.</h1>
+            <div class="typewriter-container">
+                I build <span id="typewriter" style="color: var(--accent-cyan);"></span><span class="cursor">|</span>
+            </div>
+            <p class="hero-desc">
+                A 2026 Computer Science graduate specializing in AI architectures, cloud infrastructure, and full-stack engineering. I turn complex logic into scalable, high-performance systems.
+            </p>
+            <a href="#projects" class="btn-glow">Explore Architecture</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title reveal">01. About Me</h2>
+        <div class="about-grid">
+            <div class="reveal">
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                    I am a 2026 Computer Science graduate, earning a 3.66 CGPA, with a deep passion for solving complex computational problems. My methodical approach to software engineering has been defined by rigorous academic projects and an ongoing pursuit of mastery in artificial intelligence.
+                </p>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Recently, my focus has been on scaling infrastructure—executing multi-gigabyte cloud migrations—and deep-diving into AI architectures to prepare for the Huawei HCCDA-AI certification. Whether I am deploying machine learning models or configuring Apache on CentOS 7, I demand precision and performance in every line of code.
+                </p>
+            </div>
+            <div class="reveal" style="transition-delay: 0.2s;">
+                <h3 style="margin-bottom: 1rem; font-family: 'Fira Code', monospace; color: var(--accent-cyan);">> current_stack</h3>
+                <div class="tech-stack">
+                    <span class="tech-pill">PyTorch / TensorFlow</span>
+                    <span class="tech-pill">Transformers (T5)</span>
+                    <span class="tech-pill">LSTM & CNN Models</span>
+                    <span class="tech-pill">CentOS 7 Linux</span>
+                    <span class="tech-pill">PHP / MySQL</span>
+                    <span class="tech-pill">HTML / CSS / JS</span>
+                    <span class="tech-pill">Cloud Infrastructure</span>
+                    <span class="tech-pill">Digital Logic Design</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title reveal">02. Selected Engineering</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card reveal">
+                <div class="project-folder">⚗️</div>
+                <h3 class="project-title">Neural Engine Analytics</h3>
+                <p class="project-desc">
+                    Engineered an ANN and LSTM-based predictive model for in-cylinder pressure of a six-cylinder diesel engine, isolating crankshaft angle as the sole input. Achieved an R² score exceeding 0.997 and Mean Absolute Errors of 5.45–8.20 kPa. Co-authored the final research paper and structural poster.
+                </p>
+                <div class="tech-stack" style="margin-top: 1rem;">
+                    <span class="tech-pill">LSTM</span>
+                    <span class="tech-pill">ANN</span>
+                </div>
+            </div>
+
+            <div class="project-card reveal" style="transition-delay: 0.1s;">
+                <div class="project-folder">🛒</div>
+                <h3 class="project-title">E-Commerce Architecture</h3>
+                <p class="project-desc">
+                    Designed and deployed a full-scale digital commerce platform capable of secure user registration, cart handling, and checkout processing. Engineered backend logic using PHP and MySQL on XAMPP, backed by extensive system design documentation including ER diagrams and test protocols.
+                </p>
+                <div class="tech-stack" style="margin-top: 1rem;">
+                    <span class="tech-pill">PHP</span>
+                    <span class="tech-pill">MySQL</span>
+                    <span class="tech-pill">XAMPP</span>
+                </div>
+            </div>
+
+            <div class="project-card reveal" style="transition-delay: 0.2s;">
+                <div class="project-folder">🔒</div>
+                <h3 class="project-title">Digital Logic Security Lock</h3>
+                <p class="project-desc">
+                    Developed a physical simulation of a three-digit electronic security protocol. Leveraged 7408 Quad AND, 7404 Hex Inverter, and 7486 Quad XOR IC gates on the Tinkercad platform to process logical input, culminating in visual LED authentication feedback.
+                </p>
+                <div class="tech-stack" style="margin-top: 1rem;">
+                    <span class="tech-pill">Tinkercad</span>
+                    <span class="tech-pill">Logic Gates</span>
+                </div>
+            </div>
+
+            <div class="project-card reveal">
+                <div class="project-folder">🧠</div>
+                <h3 class="project-title">T5 Text-to-SQL Translation</h3>
+                <p class="project-desc">
+                    Bridged the gap between human linguistics and database retrieval by deploying a T5 Transformer model. This AI architecture dynamically translates natural language English text directly into executable SQL queries.
+                </p>
+                <div class="tech-stack" style="margin-top: 1rem;">
+                    <span class="tech-pill">NLP</span>
+                    <span class="tech-pill">Transformers</span>
+                </div>
+            </div>
+
+            <div class="project-card reveal" style="transition-delay: 0.1s;">
+                <div class="project-folder">👁️</div>
+                <h3 class="project-title">Skin Disease Detection System</h3>
+                <p class="project-desc">
+                    Awarded 'Best Final Year Project' for developing an AI-driven detection system. Applied advanced computer vision and machine learning techniques to accurately classify and identify complex dermatological images.
+                </p>
+                <div class="tech-stack" style="margin-top: 1rem;">
+                    <span class="tech-pill">Computer Vision</span>
+                    <span class="tech-pill">AI</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" style="text-align: center; max-width: 700px;" class="reveal">
+        <h2 class="section-title" style="justify-content: center;">03. Initialize Connection</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">
+            Whether it is discussing machine learning architectures, debugging a PyTorch model, or scaling server infrastructure, my inbox is open. Let's build something extraordinary.
+        </p>
+        <a href="mailto:riazijazuet@gmail.com" class="btn-glow">Send Transmission</a>
+        
+        <div style="margin-top: 3rem;">
+            <a href="https://www.linkedin.com/in/riaz-ijaz-452225399/" target="_blank" style="color: var(--accent-cyan); text-decoration: none; font-family: 'Fira Code', monospace; font-size: 1.1rem; transition: all 0.3s;">> Connect on LinkedIn_</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>>_ Designed & Engineered by Riaz Ijaz © 2026</p>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+
+        // Typewriter Effect
+        const textArray = ["AI architectures.", "cloud infrastructure.", "neural networks.", "scalable software."];
+        let textIndex = 0;
+        let charIndex = 0;
+        const typingSpeed = 100;
+        const erasingSpeed = 50;
+        const newTextDelay = 2000;
+        const typeTarget = document.getElementById("typewriter");
+
+        function type() {
+            if (charIndex < textArray[textIndex].length) {
+                typeTarget.textContent += textArray[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, typingSpeed);
+            } else {
+                setTimeout(erase, newTextDelay);
+            }
+        }
+
+        function erase() {
+            if (charIndex > 0) {
+                typeTarget.textContent = textArray[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, erasingSpeed);
+            } else {
+                textIndex++;
+                if (textIndex >= textArray.length) textIndex = 0;
+                setTimeout(type, typingSpeed + 1100);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            if(textArray.length) setTimeout(type, newTextDelay + 250);
+        });
+    </script>
+</body>
+</html>
