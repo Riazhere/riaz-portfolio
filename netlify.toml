@@ -1,4 +1,3 @@
 [build]
-  base = "riaz-portfolio"
-  command = "npm install && npm run build"
-  publish = "dist"
+  command = "cd riaz-portfolio && npm install && npm run build"
+  publish = "riaz-portfolio/dist"
