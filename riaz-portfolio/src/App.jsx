@@ -160,7 +160,11 @@ function Document({ doc, onOpen }) {
   const isPdf = doc.src.toLowerCase().endsWith(".pdf");
 
   return (
-    <button className="specimen" onClick={() => onOpen(doc)}>
+    <button
+      className="specimen"
+      onClick={() => (isPdf ? window.open(doc.src, "_blank", "noopener,noreferrer") : onOpen(doc))}
+      type="button"
+    >
       <span className="specimen-img">
         {failed ? (
           <span className="specimen-miss">
