@@ -71,6 +71,12 @@ const TIMELINE = [
     body: "Coursework across algorithms, databases, operating systems, digital logic design and machine learning. Carried a 3.66 cumulative GPA through to the final semester.",
   },
   {
+    when: "Jul 2026",
+    title: "NESTGEN E-Learning Festival Masterclasses",
+    org: "Nestlé Asia, Oceania & Africa",
+    body: "Completed multiple masterclasses covering Computer Engineering and Technology, Purpose-Driven & Sustainability Marketing, and brand cultural relevance.",
+  },
+  {
     when: "Jun — Aug 2025",
     title: "Front-end developer, internship",
     org: "HAASHES — IT department",
@@ -97,6 +103,9 @@ const DOCUMENTS = [
   { src: "/Picture/Supervised Learning.jpeg", title: "Machine learning", tag: "Stanford Online", caption: "Supervised Machine Learning — Stanford Online and DeepLearning.AI" },
   { src: "/Picture/Haashes.jpeg", title: "Experience letter", tag: "HAASHES", caption: "Internship experience letter — HAASHES" },
   { src: "/Picture/DLD DESIGN.png", title: "Lock circuit design", tag: "Digital logic", caption: "Digital security lock — logic gate circuit design" },
+  { src: "/Picture/certificate_23962371785322889 (1).pdf", title: "Engineering Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Manufacturing & Engineering masterclass — Computer Engineering and Technology" },
+  { src: "/Picture/certificate_23926871785322887 (2).pdf", title: "Marketing Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Digital & Marketing masterclass — Purpose-Driven & Sustainability Marketing" },
+  { src: "/Picture/certificate_23697821785318872 (1).pdf", title: "Brand Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Digital & Marketing masterclass — Building a power brand through cultural relevance" },
 ];
 
 const SKILLS = [
@@ -145,6 +154,11 @@ function Portrait({ src, alt }) {
 
 function Document({ doc, onOpen }) {
   const [failed, setFailed] = useState(false);
+  
+  // Quick check to see if it's a PDF. 
+  // Standard <img> tags cannot render PDFs, so we render an embed or a fallback icon.
+  const isPdf = doc.src.toLowerCase().endsWith(".pdf");
+
   return (
     <button className="specimen" onClick={() => onOpen(doc)}>
       <span className="specimen-img">
@@ -155,6 +169,14 @@ function Document({ doc, onOpen }) {
             <strong>{doc.src}</strong>
             <br />
             not found in the public folder.
+          </span>
+        ) : isPdf ? (
+          <span className="specimen-miss">
+            PDF Document
+            <br />
+            <strong>{doc.title}</strong>
+            <br />
+            (Click to view)
           </span>
         ) : (
           <img src={doc.src} alt={doc.title} onError={() => setFailed(true)} />
@@ -429,7 +451,13 @@ export default function App() {
               transition={{ type: "spring", damping: 28, stiffness: 320 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <img src={viewing.src} alt={viewing.caption} />
+              {viewing.src.toLowerCase().endsWith('.pdf') ? (
+                <object data={viewing.src} type="application/pdf" width="100%" height="600px" style={{ background: "#fff", padding: "10px" }}>
+                  <p>Unable to display PDF file. <a href={viewing.src}>Download instead.</a></p>
+                </object>
+              ) : (
+                <img src={viewing.src} alt={viewing.caption} />
+              )}
               <figcaption>{viewing.caption}</figcaption>
             </motion.figure>
           </motion.div>
