@@ -171,13 +171,11 @@ function Document({ doc, onOpen }) {
             not found in the public folder.
           </span>
         ) : isPdf ? (
-          <span className="specimen-miss">
-            PDF Document
-            <br />
-            <strong>{doc.title}</strong>
-            <br />
-            (Click to view)
-          </span>
+          <iframe
+            className="specimen-pdf"
+            src={`${doc.src}#page=1&view=FitH`}
+            title={`${doc.title} preview`}
+          />
         ) : (
           <img src={doc.src} alt={doc.title} onError={() => setFailed(true)} />
         )}
