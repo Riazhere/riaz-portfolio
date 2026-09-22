@@ -103,9 +103,9 @@ const DOCUMENTS = [
   { src: "/Picture/Supervised Learning.jpeg", title: "Machine learning", tag: "Stanford Online", caption: "Supervised Machine Learning — Stanford Online and DeepLearning.AI" },
   { src: "/Picture/Haashes.jpeg", title: "Experience letter", tag: "HAASHES", caption: "Internship experience letter — HAASHES" },
   { src: "/Picture/DLD DESIGN.png", title: "Lock circuit design", tag: "Digital logic", caption: "Digital security lock — logic gate circuit design" },
-  { src: "/Picture/certificate_23962371785322889 (1).pdf", title: "Engineering Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Manufacturing & Engineering masterclass — Computer Engineering and Technology" },
-  { src: "/Picture/certificate_23926871785322887 (2).pdf", title: "Marketing Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Digital & Marketing masterclass — Purpose-Driven & Sustainability Marketing" },
-  { src: "/Picture/certificate_23697821785318872 (1).pdf", title: "Brand Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Digital & Marketing masterclass — Building a power brand through cultural relevance" },
+  { src: "/Picture/certificate_23962371785322889 (1).pdf", preview: "/Picture/engineering-preview.png", title: "Engineering Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Manufacturing & Engineering masterclass — Computer Engineering and Technology" },
+  { src: "/Picture/certificate_23926871785322887 (2).pdf", preview: "/Picture/marketing-preview.png", title: "Marketing Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Digital & Marketing masterclass — Purpose-Driven & Sustainability Marketing" },
+  { src: "/Picture/certificate_23697821785318872 (1).pdf", preview: "/Picture/brand-preview.png", title: "Brand Masterclass", tag: "NESTGEN 2026", caption: "NESTGEN Digital & Marketing masterclass — Building a power brand through cultural relevance" },
 ];
 
 const SKILLS = [
@@ -175,11 +175,7 @@ function Document({ doc, onOpen }) {
             not found in the public folder.
           </span>
         ) : isPdf ? (
-          <iframe
-            className="specimen-pdf"
-            src={`${doc.src}#page=1&view=FitH`}
-            title={`${doc.title} preview`}
-          />
+          <img src={doc.preview} alt={doc.title} />
         ) : (
           <img src={doc.src} alt={doc.title} onError={() => setFailed(true)} />
         )}
