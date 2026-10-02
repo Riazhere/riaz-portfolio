@@ -13,7 +13,7 @@ const PROFILE = {
   linkedin: "https://www.linkedin.com/in/riaz-ijaz-452225399/",
   photo: "/Picture/photo.jpeg",
   location: "Taxila, Pakistan",
-  updated: "September 2026",
+  updated: "October 2026",
 };
 
 const SPECS = [
