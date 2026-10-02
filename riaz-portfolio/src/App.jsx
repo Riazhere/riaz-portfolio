@@ -283,7 +283,7 @@ export default function App() {
                 I build machine learning systems and the software that carries them.
               </motion.h1>
               <motion.p className="lede" {...enter(0.24)}>
-                Final-year computer science student at UET Taxila, graduating with a 3.66 CGPA. My final
+                Computer science graduate from UET Taxila with a 3.66 CGPA. My final
                 year project — a dermatological image classifier — was named best project of its cohort.
                 Everything below is documented, and you can read the documents.
               </motion.p>
