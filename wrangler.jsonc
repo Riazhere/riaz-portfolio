@@ -8,7 +8,7 @@
     "remote": true
   },
   "assets": {
-    "directory": "./riaz-portfolio/dist",
+    "directory": "./riaz-portfolio/dist/client",
     "binding": "ASSETS",
     "run_worker_first": ["/api/*"]
   }
