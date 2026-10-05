@@ -665,13 +665,13 @@ const KB = [
 
 function answer(q, gh) {
   const t = q.toLowerCase().trim();
-  
+
   // Welcoming small talk & personality
   if (/^(hi|hello|hey|salam|assalam|greetings)/.test(t)) return { text: "Welcome! 👋 I'm Riaz's virtual assistant. I'm thrilled you're here. Ask me anything about his skills, projects, academic background, or how to get in touch!" };
   if (/^(how are you|hows it going|how are things|what's up|whats up|how do you do)/.test(t)) return { text: "I'm doing fantastic, thank you for asking! I'm here to guide you through Riaz's portfolio. What would you like to explore?" };
   if (/^(who are you|what are you|are you ai)/.test(t)) return { text: "I'm a custom digital assistant engineered by Riaz. I don't rely on a slow backend API—I'm a lightning-fast state machine designed to answer your questions instantly!" };
   if (/^(thanks|thank you|thx)/.test(t)) return { text: `You're very welcome! If you'd like to speak with Riaz directly, his inbox is always open at ${PROFILE.email}.` };
-  
+
   let best = null;
   let score = 0;
   for (const item of KB) {
@@ -708,18 +708,18 @@ function MatrixRain() {
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    
+
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%\"'#&_(),.;:?!\\|{}<>[]^~".split("");
     const fontSize = 16;
     const columns = canvas.width / fontSize;
     const drops = Array(Math.floor(columns)).fill(1);
-    
+
     const draw = () => {
       ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#10b981"; // Emerald green
       ctx.font = fontSize + "px monospace";
-      
+
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -732,12 +732,12 @@ function MatrixRain() {
   }, []);
 
   return (
-    <motion.canvas 
-      id="matrix-canvas" 
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
-      exit={{ opacity: 0 }} 
-      style={{ position: "fixed", inset: 0, zIndex: 99999, pointerEvents: "none" }} 
+    <motion.canvas
+      id="matrix-canvas"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      style={{ position: "fixed", inset: 0, zIndex: 99999, pointerEvents: "none" }}
     />
   );
 }
@@ -750,11 +750,11 @@ function PortfolioBot() {
   const [matrixHacked, setMatrixHacked] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [voiceEnabled, setVoiceEnabled] = useState(true);
-  const [messages, setMessages] = useState([{ 
-    id: 0, sender: "bot", 
-    text: "Welcome! 👋 I’m Riaz’s voice assistant. Type, speak, or listen to my replies!" 
+  const [messages, setMessages] = useState([{
+    id: 0, sender: "bot",
+    text: "Welcome! 👋 I’m Riaz’s voice assistant. Type, speak, or listen to my replies!"
   }]);
-  
+
   const listRef = useRef(null);
   const inputRef = useRef(null);
   const timers = useRef([]);
@@ -791,9 +791,9 @@ function PortfolioBot() {
 
     stopSpeaking();
     const requestId = speechRequestIdRef.current;
-    
+
     const cleanText = text.replace(/[*_#\[\]()]/g, "").replace(/https?:\S+/g, "link");
-    
+
     const API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
     const VOICE_ID = import.meta.env.VITE_ELEVENLABS_VOICE_ID || "fDeOZu1sNd7qahm2fV4k";
     const speakInBrowser = () => {
@@ -839,10 +839,10 @@ function PortfolioBot() {
         if (window.currentJarvisAudio === audio) window.currentJarvisAudio = null;
         URL.revokeObjectURL(audioUrl);
       };
-      
+
       // Store reference globally so the stop button (⏹️) can kill it mid-sentence
       window.currentJarvisAudio = audio;
-      
+
       audio.play();
     } catch (err) {
       if (requestId !== speechRequestIdRef.current) return;
@@ -857,11 +857,11 @@ function PortfolioBot() {
       alert("Voice recognition isn't supported in this browser. Try Chrome or Edge!");
       return;
     }
-    
+
     try {
       const recognition = new SpeechRecognition();
       recognition.lang = "en-US";
-      recognition.interimResults = true; 
+      recognition.interimResults = true;
       recognition.maxAlternatives = 1;
       let completeSentence = "";
 
@@ -870,7 +870,7 @@ function PortfolioBot() {
         completeSentence = Array.from(event.results)
           .map(result => result[0].transcript)
           .join("");
-        setInput(completeSentence); 
+        setInput(completeSentence);
       };
       recognition.onerror = () => setIsListening(false);
       recognition.onend = () => {
@@ -886,10 +886,10 @@ function PortfolioBot() {
   const send = (text) => {
     const clean = text.trim();
     if (!clean) return;
-    
+
     setMessages((m) => [...m, { id: idRef.current++, sender: "user", text: clean }]);
     setInput("");
-    
+
     const cmd = clean.toLowerCase();
     if (cmd === "/clear") {
       setTimeout(() => setMessages([{ id: idRef.current++, sender: "bot", text: "Terminal wiped." }]), 300);
@@ -907,7 +907,7 @@ function PortfolioBot() {
         setMessages((m) => [...m, { id: idRef.current++, sender: "bot", text: reply }]);
         speakText(reply);
         setTyping(false);
-        setTimeout(() => setMatrixHacked(false), 8000); 
+        setTimeout(() => setMatrixHacked(false), 8000);
       }, 1000);
       return;
     }
@@ -916,7 +916,7 @@ function PortfolioBot() {
     const t = setTimeout(async () => {
       let replyObj = {};
       if (cmd.includes("derm") || cmd.includes("final year") || cmd.includes("fyp")) {
-        replyObj = { 
+        replyObj = {
           text: "His final year project is a CNN pipeline for classifying skin conditions. It won Best FYP of his cohort!",
           card: { title: "Dermatological Image Classifier", tag: "PyTorch & OpenCV", link: "#work" }
         };
@@ -931,7 +931,7 @@ function PortfolioBot() {
           }
         }
       }
-      
+
       setMessages((m) => [...m, { id: idRef.current++, sender: "bot", ...replyObj }]);
       speakText(replyObj.text);
       setTyping(false);
@@ -980,10 +980,10 @@ function PortfolioBot() {
               <div className="bot-options">
                 {QUICK.map((q) => <button key={q} className="bot-chip" onClick={() => send(q)}>{q}</button>)}
               </div>
-              
+
               <form className="bot-form" onSubmit={(e) => { e.preventDefault(); send(input); }}>
                 <input ref={inputRef} value={input} onChange={(e) => setInput(e.target.value)} placeholder="Speak or type..." maxLength={140} />
-                
+
                 <button type="button" className={`mic-btn ${isListening ? "listening" : ""}`} onClick={handleListen} title="Voice Input">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
@@ -1013,7 +1013,7 @@ function CustomCursor() {
   const [variant, setVariant] = useState("default");
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  
+
   const springConfig = { damping: 25, stiffness: 800, mass: 0.1 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
@@ -1064,7 +1064,7 @@ function CodeTerminal() {
     if (!inView) return;
     let i = 0;
     const timer = setInterval(() => {
-      if (i < fullCode.length - 1) { setCode((prev) => prev + fullCode.charAt(i)); i++; } 
+      if (i < fullCode.length - 1) { setCode((prev) => prev + fullCode.charAt(i)); i++; }
       else clearInterval(timer);
     }, 15);
     return () => clearInterval(timer);
@@ -1346,7 +1346,7 @@ export default function App() {
           <div className="wrap">
             <Head kicker="05 / Toolkit" title="What I work in"><p>Grouped by how often I actually reach for them.</p></Head>
             <div className="skills-layout">
-              <CodeTerminal /> 
+              <CodeTerminal />
               <div className="skills">
                 {SKILLS.map((s, i) => (
                   <motion.div className="skill" key={s.group} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.55, delay: i * 0.08 }}>
