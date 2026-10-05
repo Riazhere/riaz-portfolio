@@ -794,40 +794,23 @@ function PortfolioBot() {
 
     const cleanText = text.replace(/[*_#\[\]()]/g, "").replace(/https?:\S+/g, "link");
 
-    const API_KEY = import.meta.env.VITE_ELEVENLABS_API_KEY;
-    const VOICE_ID = import.meta.env.VITE_ELEVENLABS_VOICE_ID || "fDeOZu1sNd7qahm2fV4k";
     const speakInBrowser = () => {
       if ("speechSynthesis" in window) {
         window.speechSynthesis.speak(new SpeechSynthesisUtterance(cleanText));
       }
     };
 
-    if (!API_KEY) {
-      speakInBrowser();
-      return;
-    }
-
     try {
-      const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`, {
+      const response = await fetch("/api/speech", {
         method: "POST",
         headers: {
-          "Accept": "audio/mpeg",
           "Content-Type": "application/json",
-          "xi-api-key": API_KEY
         },
-        body: JSON.stringify({
-          text: cleanText,
-          model_id: "eleven_multilingual_v2",
-          voice_settings: {
-            stability: 0.75,
-            similarity_boost: 0.75
-          }
-        })
+        body: JSON.stringify({ text: cleanText })
       });
 
       if (!response.ok) {
-        const details = await response.text();
-        throw new Error(`ElevenLabs request failed (${response.status}): ${details}`);
+        throw new Error(`Speech request failed (${response.status})`);
       }
 
       const blob = await response.blob();

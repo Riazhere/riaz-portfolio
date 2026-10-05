@@ -1,5 +1,7 @@
 const MODEL = "@cf/meta/llama-3.2-3b-instruct";
 const MAX_QUESTION_LENGTH = 1000;
+const VOICE_ID = "fDeOZu1sNd7qahm2fV4k";
+const MAX_SPEECH_LENGTH = 2000;
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -14,6 +16,57 @@ function jsonResponse(body, status = 200) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.pathname === "/api/speech") {
+      if (request.method !== "POST") return jsonResponse({ error: "Method not allowed." }, 405);
+      if (!env.ELEVENLABS_API_KEY) return jsonResponse({ error: "Speech service is not configured." }, 503);
+
+      let body;
+      try {
+        body = await request.json();
+      } catch {
+        return jsonResponse({ error: "Request body must be valid JSON." }, 400);
+      }
+
+      const text = typeof body.text === "string" ? body.text.trim() : "";
+      if (!text) return jsonResponse({ error: "Enter text to speak." }, 400);
+      if (text.length > MAX_SPEECH_LENGTH) {
+        return jsonResponse({ error: "Speech text is too long." }, 413);
+      }
+
+      try {
+        const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`, {
+          method: "POST",
+          headers: {
+            "Accept": "audio/mpeg",
+            "Content-Type": "application/json",
+            "xi-api-key": env.ELEVENLABS_API_KEY
+          },
+          body: JSON.stringify({
+            text,
+            model_id: "eleven_multilingual_v2",
+            voice_settings: {
+              stability: 0.75,
+              similarity_boost: 0.75
+            }
+          })
+        });
+
+        if (!response.ok) {
+          console.error("ElevenLabs speech request failed:", response.status);
+          return jsonResponse({ error: "Speech service is temporarily unavailable." }, 502);
+        }
+
+        return new Response(response.body, {
+          headers: {
+            "Content-Type": response.headers.get("Content-Type") || "audio/mpeg",
+            "Cache-Control": "no-store"
+          }
+        });
+      } catch {
+        return jsonResponse({ error: "Speech service is temporarily unavailable." }, 502);
+      }
+    }
+
     if (url.pathname !== "/api/answer") return env.ASSETS.fetch(request);
     if (request.method !== "POST") return jsonResponse({ error: "Method not allowed." }, 405);
 
