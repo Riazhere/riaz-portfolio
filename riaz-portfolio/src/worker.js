@@ -1,6 +1,6 @@
 const MODEL = "@cf/meta/llama-3.2-3b-instruct";
 const MAX_QUESTION_LENGTH = 1000;
-const VOICE_ID = "fDeOZu1sNd7qahm2fV4k";
+const VOICE_ID = "okIvXd0d45vypvhaIyru";
 const MAX_SPEECH_LENGTH = 2000;
 
 function jsonResponse(body, status = 200) {

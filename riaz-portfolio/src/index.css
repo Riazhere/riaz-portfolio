@@ -685,6 +685,12 @@ section { scroll-margin-top: 84px; }
 .term-title { position: absolute; left: 50%; transform: translateX(-50%); color: #a1a1aa; font-size: 12px; }
 .term-body { padding: 20px; color: #61afef; min-height: 340px; }
 .term-body pre { margin: 0; white-space: pre-wrap; }
+@media (max-width: 640px) {
+  .terminal-win { position: static; top: auto; font-size: 12px; }
+  .term-header { padding: 10px 12px; }
+  .term-body { min-height: 0; overflow-x: hidden; padding: 14px 12px; }
+  .term-body pre { overflow-wrap: anywhere; white-space: pre-wrap; }
+}
 
 /* ============================================================
    ADVANCED CHATBOT FEATURES (Rich Media)
