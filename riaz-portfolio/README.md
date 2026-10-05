@@ -1,5 +1,13 @@
 # React + Vite
 
+## General assistant answers
+
+Questions that do not match the portfolio's Riaz-specific knowledge base are sent to Cloudflare Workers AI through the `/api/answer` Worker route. To use it locally, authenticate Wrangler with `npx wrangler login`, then run `npm run dev` from this directory. AI inference uses the Cloudflare account's Workers AI access and quota; it does not require a browser API key. Deploy the Worker with `npm run deploy` from the workspace root. The Netlify configuration publishes only the static site and does not provide this API route.
+
+## Voice assistant
+
+For local development, copy `.env.example` to `.env.local` and set your ElevenLabs API key and voice ID. The Vite client exposes `VITE_` variables in the browser bundle, so do not use this client-side key setup in production; route requests through a server-side function instead.
+
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
 Currently, two official plugins are available:

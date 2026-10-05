@@ -1,3 +1,3 @@
 [build]
   command = "cd riaz-portfolio && npm install && npm run build"
-  publish = "riaz-portfolio/dist"
+  publish = "riaz-portfolio/dist/client"

@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "npm --prefix riaz-portfolio install && npm --prefix riaz-portfolio run build",
-    "deploy": "npm run build && npx wrangler deploy"
+    "deploy": "npm run build && npx wrangler deploy --config riaz-portfolio/dist/riaz_portfolio/wrangler.json"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3"
